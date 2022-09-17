@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build-abc:
+  build:
     docker:
       - image: python:3.8-bullseye
 
@@ -29,7 +29,7 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
-  
+    
   upload-docker-image:
     docker:
       - image: cimg/base:2021.04
@@ -50,10 +50,10 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-abc
+      - build
       - upload-docker-image:
           requires:
-            - build-abc
+            - build
           filters:
             branches:
               only: [ master ]
