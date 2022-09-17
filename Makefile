@@ -1,5 +1,5 @@
 setup:
-	python3 -m venv ~/.devops
+	python3 -m venv ~/.capstone
 
 install:
 	pip install --upgrade pip &&\
@@ -11,7 +11,9 @@ test:
 	#No tests yet
 
 lint:
+	#lint dockerfile
 	./hadolint Dockerfile
+	#lint python
 	pylint --disable=R,C,W1203 app.py
 
 all: install lint test
