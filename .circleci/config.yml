@@ -55,7 +55,7 @@ workflows:
       - build
       - upload-docker-image:
           requires:
-            - test-build
+            - build
           filters:
             branches:
               only: [ master ]
