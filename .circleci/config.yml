@@ -29,9 +29,33 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
+  
+  upload-docker-image:
+    docker:
+      - image: cimg/base:2021.04
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          version: 19.03.13
+
+      - run:
+          name: Build docker container
+          command: |
+            docker build --tag=$DOCKER_IMAGE_NAME .
+            docker image ls
 
 
 workflows:
   default:
     jobs:
       - build
+      - upload-docker-image:
+          requires:
+            - test-build
+          filters:
+            branches:
+              only: [ master ]
