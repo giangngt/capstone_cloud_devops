@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  build-abc:
     docker:
       - image: python:3.8-bullseye
 
@@ -38,10 +38,8 @@ jobs:
 
     steps:
       - checkout
-
       - setup_remote_docker:
           version: 19.03.13
-
       - run:
           name: Build docker container
           command: |
@@ -52,10 +50,10 @@ jobs:
 workflows:
   default:
     jobs:
-      - build
+      - build-abc
       - upload-docker-image:
           requires:
-            - build
+            - build-abc
           filters:
             branches:
               only: [ master ]
