@@ -1,5 +1,5 @@
 Description: >
-  Giang-Capstone
+  Giang-Capstone Project
   Creates a VPC with public subnets for EKS.
 
 Parameters:

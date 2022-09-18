@@ -1,5 +1,5 @@
 Description: >
-  Giang-Capstone
+  Giang-Capstone Project
   Creates the nodegroup for the Amazon EKS Cluster
 
 Parameters:
