@@ -39,7 +39,6 @@ Resources:
   CapstoneProjectCluster:
     Type: AWS::EKS::Cluster
     Properties:
-      Version: "1.19"
       Name: !Sub ${EnvironmentName}-cluster
       RoleArn: !GetAtt EKSClusterRole.Arn
       ResourcesVpcConfig:
@@ -50,6 +49,7 @@ Resources:
             - ","
             - Fn::ImportValue:
                 Fn::Sub: ${EnvironmentName}-PUB-NETS
+                
 Outputs:
   EksId:
     Description: EKS id
