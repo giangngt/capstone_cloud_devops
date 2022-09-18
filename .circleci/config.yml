@@ -219,22 +219,16 @@ workflows:
     jobs:
       - build
       - upload-docker-image:
-          requires:
-            - build
+          requires: [ build ]
           filters:
             branches:
               only: [ main ]
       - deploy-infrastructure:
-          requires:
-            - upload-docker-image
+          requires: [ upload-docker-image ]
       - configure-infrastructure:
-          requires:
-            - deploy-infrastructure
+          requires: [ deploy-infrastructure ]
       - configure-cluster:
-          requires:
-            - configure-infrastructure
-            - upload-docker
+          requires: [ configure-infrastructure ]
       - deploy-docker:
-          requires:
-            - configure-cluster
+          requires: [ configure-cluster ]
 
