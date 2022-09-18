@@ -1,9 +1,8 @@
 FROM python:3.8-bullseye
 
-WORKDIR /app/app/templates/
+WORKDIR /app
 
-COPY .app.py /app/
-COPY .ansible app/templates/ /app/
+COPY . app.py /app/
 
 # hadolint ignore=DL3013
 RUN pip install --upgrade pip &&\
