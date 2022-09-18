@@ -190,6 +190,28 @@ jobs:
           root: ~/
           paths:
             - elb_dns.txt
+    
+  deploy-docker:
+    docker:
+      - image: python:3.8-bullseye
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "95:eb:06:1f:b7:31:d6:47:f5:25:fa:ad:f5:b5:b6:e9"
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+      - run:
+          name: Deploy newest Docker Image
+          command: |
+            cat ~/inventory.txt
+            cd ansible
+            ansible-playbook -i ~/inventory.txt deploy-app.yml
+          no_output_timeout: 2m
 
 
 workflows:
