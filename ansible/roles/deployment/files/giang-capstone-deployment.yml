@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: giang-capstone-deployment
+  labels:
+    app: giang-capstone-app
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: giang-capstone-app
+  template:
+    metadata:
+      labels:
+        app: giang-capstone-app
+    spec:
+      containers:
+        - name: giang-capstone-app
+          image: giangngt/giang-capstone
+          ports:
+            - containerPort: 80
