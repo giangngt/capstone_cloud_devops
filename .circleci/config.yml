@@ -62,7 +62,7 @@ jobs:
           name: Install dependencies
           command: yum install -y tar gzip
       - run:
-          name: Ensure EKS network exists
+          name: Deploy EKS network
           command: |
             aws cloudformation deploy \
               --template-file cloudformation/network.yml \
@@ -70,7 +70,7 @@ jobs:
               --stack-name "${ENVIRONMENT_NAME}-eks-network" \
               --region ${AWS_DEFAULT_REGION}
       - run:
-          name: Ensure EKS Cluster exists
+          name: Deploy EKS Cluster
           command: |
             aws cloudformation deploy \
               --template-file cloudformation/cluster.yml \
@@ -80,7 +80,7 @@ jobs:
               --capabilities CAPABILITY_NAMED_IAM
           no_output_timeout: 15m
       - run:
-          name: Ensure Nodegroup exists
+          name: Deploy EKS Nodegroup
           command: |
             aws cloudformation deploy \
               --template-file cloudformation/nodegroup.yml \
@@ -89,7 +89,7 @@ jobs:
               --region ${AWS_DEFAULT_REGION} \
               --capabilities CAPABILITY_NAMED_IAM
       - run:
-          name: Ensure management instances exists
+          name: Deploy EC2 management instances
           command: |
             aws cloudformation deploy \
               --template-file cloudformation/management.yml \
@@ -156,7 +156,7 @@ jobs:
           command: |
             python3 -m pip install ansible
       - run:
-          name: Configure server
+          name: Configure clusters
           command: |
             if grep -q "No changes to deploy" ~/checkIfDeployed.txt
               then
